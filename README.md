@@ -13,8 +13,8 @@ SkillBridge is a MERN stack-based course website where users can browse and purc
 - **Frontend**: React.js (Vite)
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
-- **Authentication**: JWT
-- **State Management**: React Context API
+- **Authentication**: express-session
+
 
 ## Installation
 
