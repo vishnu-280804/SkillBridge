@@ -132,32 +132,33 @@ export const signin = async (req, res) => {
     try {
         const user = await User.findOne({ email });
 
-        // Check credentials
-        if (user && (await bcrypt.compare(password, user.password))) {
-            req.session.user = { id: user._id, name: user.name, email: user.email };
-            return res.status(200).json({ message: "Signin successful" });
-        } else {
+        if (!user) {
+            return res.status(401).json({ message: "User not found" });
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        if (!isPasswordCorrect) {
             return res.status(401).json({ message: "Invalid email or password" });
         }
+
+        req.session.user = { id: user._id, name: user.name, email: user.email };
+        res.status(200).json({ message: "Signin successful", user: req.session.user });
+
     } catch (error) {
-        console.log(`Error: ${error}`);
-        return res.status(500).json({ message: "Server error" });
+        console.error(`Error: ${error}`);
+        res.status(500).json({ message: "Server error" });
     }
 };
 
 export const logout = (req, res) => {
-    if (req.session.user) {
-        req.session.destroy((err) => {
-            if (err) {
-                return res.status(400).json({ message: "Bad Credentials" });
-            }
-            res.clearCookie("connect.sid");
-            return res.status(200).json({ message: "Logout Successfull" });
-        });
-    } else {
-        return res.status(401).json({ message: "Error" });
-    }
-};
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Logout failed" });
+      }
+      res.json({ message: "Logged out successfully" });
+    });
+  };
+  
 
 export const check = (req, res) => {
     if (req.session.user) {
@@ -197,3 +198,5 @@ export const sendEmail  = async(req,res)=>{
 
 
 }
+
+  

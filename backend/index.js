@@ -6,17 +6,18 @@ import session from "express-session";
 import dotenv from "dotenv";
 import connectDB from "./lib/connectDB.js";
 import authRoutes from "./routes/auth.routes.js"
+import cartRoutes from "./routes/cart.routes.js"
 import { signup,signin,logout } from "./controllers/auth.controller.js";
 dotenv.config();
 const app = express();
-
+const router = express.Router();
 const port = process.env.PORT;
 console.log(process.env.EMAIL);
 console.log(process.env.EMAIL_PASSWORD);
 app.use(
     cors({
-      origin: "http://localhost:5173", // Replace with your frontend's URL
-      credentials: true, // Allow cookies to be sent/received
+      origin: "http://localhost:5173", // Change to your frontend URL
+      credentials: true, // Allow sending cookies
     })
   );
   
@@ -24,15 +25,17 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(
     session({
-        secret: "Vishnu", // Replace with a strong secret key
+        secret: "your-secret-key",  // Change this to a secure key
         resave: false,
         saveUninitialized: false,
-        cookie: { secure: false } // Use `true` for HTTPS
+        cookie: { secure: false, httpOnly: true }, // secure: true for HTTPS
     })
 );
 
+
 connectDB();
 app.use("/auth",authRoutes);
+app.use("/cart",cartRoutes);
 
 
 app.get("/",(req,res)=>{
