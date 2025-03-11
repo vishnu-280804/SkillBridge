@@ -51,7 +51,7 @@ export default function Signup() {
       }
 
       // API call
-      const res = await axios.post("http://localhost:3000/auth/signup", {
+      const res = await axios.post("http://skill-bridge-api.vercel.app/auth/signup", {
         name,
         email,
         password,
@@ -82,7 +82,7 @@ export default function Signup() {
         return;
       }
 
-      const res = await axios.post("http://localhost:3000/auth/verify-otp", { 
+      const res = await axios.post("http://skill-bridge-api.vercel.app/auth/verify-otp", { 
         email: userEmail, 
         otp 
       });
