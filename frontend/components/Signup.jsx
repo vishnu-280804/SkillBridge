@@ -81,7 +81,7 @@ export default function Signup() {
         return;
       }
 
-      const res = await axios.post("http://skill-bridge-api.vercel.app/auth/verify-otp", { 
+      const res = await fetch("http://skill-bridge-api.vercel.app/auth/verify-otp", { 
         email: userEmail, 
         otp 
       });
