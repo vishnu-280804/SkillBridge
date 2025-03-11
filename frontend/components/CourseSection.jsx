@@ -18,7 +18,7 @@ const CourseSection = () => {
 
     if (isAdded) {
       try {
-        const response = await fetch("http://localhost:3000/cart/add", {
+        const response = await fetch("http://skill-bridge-api.vercel.app/cart/add", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
