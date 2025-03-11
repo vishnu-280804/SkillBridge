@@ -16,7 +16,7 @@ console.log(process.env.EMAIL);
 console.log(process.env.EMAIL_PASSWORD);
 app.use(
     cors({
-      origin: "https://skill-bridge-indol.vercel.app/", // Change to your frontend URL
+      origin: "https://skill-bridge-new.vercel.app/", // Change to your frontend URL
       credentials: true, // Allow sending cookies
     })
   );
