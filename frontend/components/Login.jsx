@@ -26,7 +26,7 @@ export default function Login() {
       }
 
       // Send signin request to backend
-      const res = await axios.post("http://skill-bridge-api.vercel.app/auth/signin", data);
+      const res = await fetch("http://skill-bridge-api.vercel.app/auth/signin", data);
 
       // Store authentication token and update state
       localStorage.setItem("isAuthenticated", "true");
