@@ -11,7 +11,7 @@ const Connect = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/auth/send-email", {
+      const response = await fetch("skill-bridge-api.vercel.app/auth/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
