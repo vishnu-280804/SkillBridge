@@ -26,7 +26,7 @@ export default function Login() {
       }
 
       // Send signin request to backend
-      const res = await axios.post("http://localhost:3000/auth/signin", data);
+      const res = await axios.post("http://skill-bridge-api.vercel.app/auth/signin", data);
       
       toast.success(res.data.message || "Signin successful", { position: "top-center" });
 
