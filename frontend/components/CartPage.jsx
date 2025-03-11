@@ -8,7 +8,7 @@ const CartPage = () => {
   // Fetch Cart Count
   const fetchCartCount = async () => {
     try {
-      const response = await fetch("http://localhost:3000/cart/count");
+      const response = await fetch("http://skill-bridge-api.vercel.app/cart/count");
       const data = await response.json();
       setCount(data.count);
     } catch (error) {
@@ -19,7 +19,7 @@ const CartPage = () => {
   // Fetch Cart Items
   const fetchCart = async () => {
     try {
-      const res = await fetch("http://localhost:3000/cart/fetch");
+      const res = await fetch("http://skill-bridge-api.vercel.app/cart/fetch");
       const data = await res.json();
       console.log("Cart Data:", data);
 
