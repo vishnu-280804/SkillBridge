@@ -10,7 +10,7 @@ export default function Navbar() {
 
   const fetchCartCount = async () => {
     try {
-      const response = await fetch("http://localhost:3000/cart/count", {
+      const response = await fetch("http://skill-bridge-api.vercel.app/cart/count", {
         credentials: "include",
       });
       const data = await response.json();
@@ -22,7 +22,7 @@ export default function Navbar() {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch("http://localhost:3000/auth/status", {
+      const response = await fetch("http://skill-bridge-api.vercel.app/auth/status", {
         credentials: "include",
       });
       const data = await response.json();
@@ -38,7 +38,7 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("http://localhost:3000/auth/logout", {
+    await fetch("http://skill-bridge-api.vercel.app/auth/logout", {
       method: "POST",
       credentials: "include",
     });
