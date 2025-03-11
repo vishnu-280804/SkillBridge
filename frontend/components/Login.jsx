@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./signup.css";
+import { AuthContext } from "./AuthContext.jsx"; // Import AuthContext
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
+  const { setIsAuthenticated } = useContext(AuthContext); // Get authentication setter
   const { 
     register, 
     handleSubmit, 
@@ -17,7 +20,6 @@ export default function Login() {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      // Validate inputs before API call
       if (!data.email || !data.password) {
         toast.error("Please provide email and password", { position: "top-center" });
         setLoading(false);
@@ -26,15 +28,18 @@ export default function Login() {
 
       // Send signin request to backend
       const res = await axios.post("http://skill-bridge-api.vercel.app/auth/signin", data);
-      
+
+      // Store authentication token and update state
+      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("token", res.data.token); // Save JWT token
+      setIsAuthenticated(true);
+
       toast.success(res.data.message || "Signin successful", { position: "top-center" });
 
       // Redirect to dashboard or home page
-      setTimeout(() => navigate("/"), 2000);
+      setTimeout(() => navigate("/dashboard"), 2000);
     } catch (err) {
-      const errorMessage = err.response?.data?.message || 
-                           err.message || 
-                           "Signin failed";
+      const errorMessage = err.response?.data?.message || "Signin failed";
       toast.error(errorMessage, { position: "top-center" });
       console.error("Signin Error:", err);
     } finally {
@@ -50,7 +55,6 @@ export default function Login() {
   return (
     <>
       <ToastContainer />
-
       <form className="forms" onSubmit={handleSubmit(onSubmit)}>
         <input
           type="email"
